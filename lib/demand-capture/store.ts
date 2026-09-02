@@ -10,6 +10,14 @@ const KV_TOKEN = process.env.KV_REST_API_TOKEN
 const RESEND_KEY = process.env.RESEND_API_KEY
 const RESEND_AUDIENCE = process.env.RESEND_AUDIENCE_ID
 
+/**
+ * A product promises its list "nothing from any other list". That only holds
+ * with one audience per product, so RESEND_AUDIENCE_ID__<PRODUCT_ID> wins
+ * over the shared RESEND_AUDIENCE_ID when it is set.
+ */
+const audienceFor = (productId: string) =>
+  process.env['RESEND_AUDIENCE_ID__' + productId.toUpperCase().replace(/-/g, '_')] ?? RESEND_AUDIENCE
+
 const key = (productId: string, suffix: string) => `waitlist:${productId}:${suffix}`
 
 async function kv(command: unknown[]): Promise<unknown> {
@@ -51,9 +59,10 @@ export async function allSignals(productId: string): Promise<DemandSignal[]> {
 
 /** Non-fatal: a Resend outage must not cost us the signal we already stored. */
 export async function addToAudience(email: string, name: string | undefined, productId: string) {
-  if (!RESEND_KEY || !RESEND_AUDIENCE) return
+  const audience = audienceFor(productId)
+  if (!RESEND_KEY || !audience) return
   try {
-    await fetch(`https://api.resend.com/audiences/${RESEND_AUDIENCE}/contacts`, {
+    await fetch(`https://api.resend.com/audiences/${audience}/contacts`, {
       method: 'POST',
       headers: { Authorization: `Bearer ${RESEND_KEY}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({
