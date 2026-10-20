@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Baskervville } from 'next/font/google'
 import Link from 'next/link'
 import './globals.css'
@@ -12,6 +12,11 @@ const baskervville = Baskervville({
 })
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://akamoto.io'
+
+export const viewport: Viewport = {
+  viewportFit: 'cover',
+  themeColor: '#0b0714',
+}
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE),
@@ -38,7 +43,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:bg-ink focus:px-3 focus:py-2"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-[max(1rem,env(safe-area-inset-top))] focus:z-50 focus:bg-ink focus:px-3 focus:py-2"
         >
           Skip to the text
         </a>
