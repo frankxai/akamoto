@@ -86,8 +86,7 @@ export default function Home() {
         </p>
         <p className="measure mt-5" style={{ color: 'var(--paper-dim)' }}>
           No date is set for the bound edition, and none will be announced until it is decided. No count is
-          shown until it is real. The first hundred readers are named in the Register itself, in the fiction,
-          and whatever the bound edition costs when it is finally priced, they pay that and never more.
+          shown until it is real. Join the list to hear first when the house opens.
         </p>
         <div className="mt-10 max-w-xl">
           <Register />
