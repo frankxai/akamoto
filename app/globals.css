@@ -120,7 +120,6 @@ textarea:focus-visible {
 
 .wl-input:focus {
   border-bottom-color: var(--jade);
-  outline: none;
 }
 
 .wl-btn {
