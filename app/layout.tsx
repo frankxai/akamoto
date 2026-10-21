@@ -14,6 +14,9 @@ const baskervville = Baskervville({
 const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://akamoto.io'
 
 export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
   viewportFit: 'cover',
   themeColor: '#0b0714',
 }
