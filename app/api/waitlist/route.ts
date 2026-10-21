@@ -10,8 +10,8 @@ export async function POST(req: Request) {
     const { status, body: out } = await handleJoin(product(), body, req)
     return Response.json(out, { status })
   } catch (error) {
-    const message = error instanceof Error ? error.message : 'Unknown error'
-    return Response.json({ error: `The Register is not taking names yet (${message}).` }, { status: 503 })
+    console.error('[waitlist] join failed', error)
+    return Response.json({ error: 'The Register is not taking names just now. Please try again later.' }, { status: 503 })
   }
 }
 
