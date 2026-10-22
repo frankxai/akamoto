@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from 'next'
 import { Baskervville } from 'next/font/google'
 import Link from 'next/link'
+import { Analytics } from '@vercel/analytics/react'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import './globals.css'
 
 const baskervville = Baskervville({
@@ -91,6 +93,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </p>
           </div>
         </footer>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   )
