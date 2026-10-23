@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     description: 'Three prophecies struck from the teaching, readable in full. A work of fiction in the world of Arcanea.',
     url: SITE,
   },
-  twitter: { card: 'summary' },
+  twitter: { card: 'summary_large_image' },
   robots: { index: true, follow: true },
 }
 
