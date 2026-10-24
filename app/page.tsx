@@ -4,12 +4,44 @@ import { prophecies } from '@/content/prophecies'
 import { Register } from '@/components/Register'
 
 export const metadata: Metadata = {
+  title: 'Akamoto — The forgotten Prophecies of Darkness and Light',
+  description: 'Three prophecies struck from the teaching, readable in full. A work of fiction in the world of Arcanea. The Register of Readers is open.',
   alternates: { canonical: '/' },
+  openGraph: {
+    title: 'Akamoto — The forgotten Prophecies of Darkness and Light',
+    description: 'Three prophecies struck from the teaching, readable in full. A work of fiction in the world of Arcanea.',
+    url: '/',
+  },
 }
 
 export default function Home() {
+  const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://akamoto.io'
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebSite',
+        '@id': `${SITE}/#website`,
+        url: SITE,
+        name: 'Akamoto',
+        description: 'The forgotten Prophecies of Darkness and Light.',
+      },
+      {
+        '@type': 'Organization',
+        '@id': `${SITE}/#organization`,
+        name: 'Akamoto',
+        url: SITE,
+      },
+    ],
+  }
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <section className="reveal pb-20 pt-28 sm:pt-40" aria-labelledby="title">
         <p className="smallcaps">A work of fiction, in the world of Arcanea</p>
         <h1
