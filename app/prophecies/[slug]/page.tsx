@@ -12,10 +12,13 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const p = bySlug((await params).slug)
   if (!p) return {}
+  const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://akamoto.io'
+  const url = `${SITE}/prophecies/${p.slug}`
   return {
     title: `${p.numeral}. ${p.title}`,
     description: p.verses[0],
-    openGraph: { title: `${p.numeral}. ${p.title} — Akamoto`, description: p.verses[0] },
+    alternates: { canonical: url },
+    openGraph: { title: `${p.numeral}. ${p.title} — Akamoto`, description: p.verses[0], url },
   }
 }
 
@@ -27,8 +30,23 @@ export default async function ProphecyPage({ params }: Params) {
   const prev = prophecies[index - 1]
   const next = prophecies[index + 1]
 
+  const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://akamoto.io'
+  const url = `${SITE}/prophecies/${p.slug}`
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: `${p.numeral}. ${p.title}`,
+    description: p.verses[0],
+    url,
+  }
+
   return (
     <article className="reveal pb-24 pt-24 sm:pt-32">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <p className="smallcaps">
         Prophecy {p.numeral} of {prophecies.length}
       </p>
