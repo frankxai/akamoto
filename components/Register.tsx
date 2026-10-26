@@ -19,7 +19,7 @@ const copy: Partial<WaitlistCopy> = {
   waiting: '{count} names in the Register.',
   entered: 'You are entered. Number {n} in the Register.',
   enteredNoPosition: 'You are entered.',
-  seats: '{n} of the first hundred remain. {benefit}',
+  seats: '{n} places remain. {benefit}',
   intro: 'Three questions, none required. They decide what the house makes next, and what it asks for it.',
   roleLabel: 'You came as',
   pricePrompt: 'If the bound edition were in your hands, what would you set down for it?',
@@ -50,7 +50,7 @@ export async function Register() {
     <WaitlistForm
       productId={PRODUCT_ID}
       productName="The Forgotten Prophecies"
-      foundingBenefit="The first hundred are named in the Register, and pay the first price for as long as the house stands."
+      foundingBenefit="Join the list to hear first when the house opens."
       placeholder="where the house may write to you"
       initialState={initialState}
       copy={copy}
